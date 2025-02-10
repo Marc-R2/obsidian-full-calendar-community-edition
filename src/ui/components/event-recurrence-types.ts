@@ -51,7 +51,7 @@ export interface DateStats {
  */
 export const getDateStats = (date: DateTime): DateStats => {
     const monthDay = Number(date.day);
-    const daysInMonth = date.daysInMonth;
+    const daysInMonth = date.daysInMonth!;
     const yearDay = date.ordinal;
     const daysInYear = date.daysInYear;
 
@@ -61,9 +61,9 @@ export const getDateStats = (date: DateTime): DateStats => {
         daysUntilEndMonth: daysInMonth - monthDay + 1,
         weekdayInMonth: Math.floor((monthDay - 1) / 7) + 1,
         weekdaysFromMonthEnd: Math.floor((daysInMonth - monthDay) / 7) + 1,
-        dayName: date.weekdayLong,
+        dayName: date.weekdayLong!,
         month: date.month,
-        monthName: date.monthLong,
+        monthName: date.monthLong!,
         yearDay,
         daysUntilEndYear: daysInYear - yearDay + 1,
         weekdayInYear: Math.floor((yearDay - 1) / 7) + 1,

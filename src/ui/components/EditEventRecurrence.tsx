@@ -255,7 +255,7 @@ export const EditEventRecurrence = ({
                 <input
                     id="recurrenceStartDate"
                     type="date"
-                    value={currentStartDate.toUTC().toISODate()}
+                    value={currentStartDate.toUTC().toISODate()!}
                     required
                     className="fc-edit-control"
                     onChange={(element) => {
@@ -303,7 +303,7 @@ export const EditEventRecurrence = ({
                 <input
                     id="recurrenceEndDate"
                     type="date"
-                    value={currentEndDate.toUTC().toISODate()}
+                    value={currentEndDate.toUTC().toISODate()!}
                     className="fc-edit-control"
                     disabled={endType !== "endDate"}
                     onChange={(element) => {

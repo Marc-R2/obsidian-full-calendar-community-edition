@@ -151,7 +151,7 @@ export const EditEvent = ({
                           rrule: recurringRule.toString(),
                           startDate: DateTime.fromJSDate(
                               recurringRule.options.dtstart ?? date
-                          ).toISODate(),
+                          ).toISODate()!,
                           skipDates: [],
                       }
                     : {

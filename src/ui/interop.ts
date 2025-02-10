@@ -28,7 +28,7 @@ const parseTime = (time: string): Duration | null => {
         parsed.toISOTime({
             includeOffset: false,
             includePrefix: false,
-        })
+        })!
     );
 };
 
@@ -55,9 +55,9 @@ const getTime = (date: Date): string =>
         suppressMilliseconds: true,
         includeOffset: false,
         suppressSeconds: true,
-    });
+    })!;
 
-const getDate = (date: Date): string => DateTime.fromJSDate(date).toISODate();
+const getDate = (date: Date): string => DateTime.fromJSDate(date).toISODate()!;
 
 const combineDateTimeStrings = (date: string, time: string): string | null => {
     const parsedDate = DateTime.fromISO(date);

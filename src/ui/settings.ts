@@ -92,6 +92,7 @@ export function addCalendarButton(
                     icloud: "iCloud",
                     caldav: "CalDAV",
                     ical: "Remote (.ics format)",
+                    test: "Test",
                 }))
         )
         .addExtraButton((button) => {
@@ -138,6 +139,7 @@ export function addCalendarButton(
                         submit: async (source: CalendarInfo) => {
                             if (source.type === "caldav") {
                                 try {
+                                    console.log("source", source);
                                     let sources = await importCalendars(
                                         {
                                             type: "basic",

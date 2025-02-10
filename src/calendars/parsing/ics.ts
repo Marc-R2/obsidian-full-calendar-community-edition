@@ -45,7 +45,7 @@ class Timezones {
     /**
      * Converts ICal time to ISODate string in local timezone.
      */
-    getDate(t: ical.Time): string {
+    getDate(t: ical.Time): string | null {
         return DateTime.fromSeconds(this.toUTC(t).toUnixTime(), { zone: "UTC" })
             .setZone(LOCAL_TIME_ZONE)
             .toISODate();
@@ -54,7 +54,7 @@ class Timezones {
     /**
      * Converts ICal time to ISOTime string  in local timezone.
      */
-    getTime(t: ical.Time): string {
+    getTime(t: ical.Time): string | null {
         if (t.isDate) {
             return "00:00";
         }
@@ -94,27 +94,27 @@ function icsToOFC(input: ical.Event, timezones: Timezones): OFCEvent {
                 const exdate = exdateProp.getFirstValue();
                 // NOTE: We only store the date from an exdate and recreate the full datetime exdate later,
                 // so recurring events with exclusions that happen more than once per day are not supported.
-                return timezones.getDate(exdate);
+                return timezones.getDate(exdate)!;
             });
 
-        const idDate = timezones.getTime(input.endDate);
+        const idDate = timezones.getTime(input.endDate)!;
         return {
             type: "rrule",
             title: input.summary,
             id: `ics::${input.uid}::${idDate}::recurring`,
             rrule: rrule.toString(),
             skipDates: exdates,
-            startDate: timezones.getDate(input.startDate),
+            startDate: timezones.getDate(input.startDate)!,
             ...(allDay
                 ? { allDay: true }
                 : {
                       allDay: false,
-                      startTime: timezones.getTime(input.startDate),
-                      endTime: timezones.getTime(input.endDate),
+                      startTime: timezones.getTime(input.startDate)!,
+                      endTime: timezones.getTime(input.endDate)!,
                   }),
         };
     } else {
-        const date = timezones.getDate(input.startDate);
+        const date = timezones.getDate(input.startDate)!;
         const endDate =
             specifiesEnd(input) && input.endDate
                 ? timezones.getDate(input.endDate)
@@ -130,8 +130,8 @@ function icsToOFC(input: ical.Event, timezones: Timezones): OFCEvent {
                 ? { allDay: true }
                 : {
                       allDay: false,
-                      startTime: timezones.getTime(input.startDate),
-                      endTime: timezones.getTime(input.endDate),
+                      startTime: timezones.getTime(input.startDate)!,
+                      endTime: timezones.getTime(input.endDate)!,
                   }),
         };
     }

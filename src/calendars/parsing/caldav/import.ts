@@ -8,6 +8,7 @@ export async function importCalendars(
     url: string
 ): Promise<CalDAVSource[]> {
     try {
+        console.log(`Importing calendars from ${url} with auth`, auth);
         let xhr = new transport.Basic(
             new dav.Credentials({
                 username: auth.username,

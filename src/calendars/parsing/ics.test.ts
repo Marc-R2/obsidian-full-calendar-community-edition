@@ -230,7 +230,7 @@ END:VCALENDAR
     });
 });
 
-function timeFromUTCSeconds(timestamp: number): string {
+function timeFromUTCSeconds(timestamp: number): string | null {
     return DateTime.fromSeconds(timestamp, { zone: "UTC" })
         .setZone(LOCAL_TIME_ZONE)
         .toISOTime({
